@@ -1,0 +1,46 @@
+<html>
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            var ws;
+
+            ws = new WebSocket("ws://172.30.27.60:8888/echo");
+
+            ws.onmessage = function (evt) {
+                var data;
+                data = evt.data;
+                $(".message:last").after("<div class=message>"+data+"<br></div>")
+            };
+
+            ws.onerror = function(e) {
+              console.log(e);
+            };
+
+            function handle() {
+                var message = $("#chat_message").val();
+                ws.send(message);
+                $("#chat_message").val("");
+            }
+            
+            $("#send_message_button").click(function() {
+                handle();
+            })
+            $("#chat_message").bind('keypress', function(e) {
+                var code = e.keyCode || e.which;
+                if(code == 13) { //Enter keycode
+                    handle();
+                }
+            });
+        });
+    </script>
+</head>
+    <body>
+        <div class="message">
+            Init...<br>
+        </div>
+        <input type="text" id="chat_message">
+        <button id="send_message_button">Send</button>
+    </body>
+</html>

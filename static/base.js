@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     var ws;
 
-    ws = new WebSocket("ws://192.168.1.125:8888/chat");
+    ws = new WebSocket("ws://127.0.0.1:8888/chat");
 
     ws.onmessage = function(evt) {
         var data;
@@ -14,7 +14,7 @@ $(document).ready(function() {
         time += ((date.getSeconds() < 10) ? "0" : "") + date.getSeconds();
         time = "< " + time + ">: "
         data = time + data;
-        
+
         $(".message:last").after("<div class=message>" + data + "<br></div>")
     };
 

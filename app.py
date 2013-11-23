@@ -6,6 +6,8 @@ import sys
 from twisted.python import log
 from twisted.internet import reactor
 
+# LISTEN_IP = "127.0.0.1"
+LISTEN_IP = "192.168.1.125"
 
 class Application(cyclone.web.Application):
     def __init__(self):
@@ -19,14 +21,15 @@ class Application(cyclone.web.Application):
 
         handlers = [
             (r"/", MainHandler),
-            (r"/echo", ChatSocketHandler),
+            (r"/chat", ChatSocketHandler),
         ]
         cyclone.web.Application.__init__(self, handlers, **settings)
 
 
 class MainHandler(cyclone.web.RequestHandler):
     def get(self):
-        self.render("base.html")
+        log.msg(type(LISTEN_IP))
+        self.render("base.html", listen_ip={'a': LISTEN_IP})
 
 class ChatSocketHandler(cyclone.websocket.WebSocketHandler):
     clients = []

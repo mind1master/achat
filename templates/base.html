@@ -1,46 +1,58 @@
+<!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
+    <script src="static/base.js"></script>
 
-            var ws;
+    <!-- Bootstrap -->
+    <link href="static/bootstrap.css" rel="stylesheet">
 
-            ws = new WebSocket("ws://172.30.27.60:8888/echo");
-
-            ws.onmessage = function (evt) {
-                var data;
-                data = evt.data;
-                $(".message:last").after("<div class=message>"+data+"<br></div>")
-            };
-
-            ws.onerror = function(e) {
-              console.log(e);
-            };
-
-            function handle() {
-                var message = $("#chat_message").val();
-                ws.send(message);
-                $("#chat_message").val("");
-            }
-            
-            $("#send_message_button").click(function() {
-                handle();
-            })
-            $("#chat_message").bind('keypress', function(e) {
-                var code = e.keyCode || e.which;
-                if(code == 13) { //Enter keycode
-                    handle();
-                }
-            });
-        });
-    </script>
-</head>
-    <body>
-        <div class="message">
-            Init...<br>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body style="padding-top: 100px;">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Achat!</a>
         </div>
-        <input type="text" id="chat_message">
-        <button id="send_message_button">Send</button>
-    </body>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Sign Out</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="jumbotron">
+        <div class="message">
+            <h2>Welcome!</h2><br>
+        </div>
+        
+        <input type="text" id="chat_message" class="form-control" placeholder="Your message here">
+        <button id="send_message_button" class="btn btn-default">Send</button>
+        
+      </div>
+    </div>
+
+        
+  </body>
 </html>
